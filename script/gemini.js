@@ -7,7 +7,7 @@ module.exports.config = {
   hasPrefix: false,
   aliases: ['gm', 'g1', 'pt'],
   description: "An AI command powered by GPT-3",
-  usage: "Ai [prompt]",
+  usage: "gm [prompt]",
   credits: 'Developer',
   cooldown: 3,
 };
@@ -23,7 +23,7 @@ module.exports.run = async function({ api, event, args }) {
   api.sendMessage('Please wait...', event.threadID, event.messageID);
 
   try {
-    const { data } = await axios.get(`https://nash-api-end.onrender.com/gemini?prompt=${encodeURIComponent(input)}`);
+    const { data } = await axios.get(`https://nash-rest-api.vercel.app/gemini?prompt=${encodeURIComponent(input)}`);
     const response = data.response;
 
     api.sendMessage(response, event.threadID, event.messageID);
