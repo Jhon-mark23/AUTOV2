@@ -22,7 +22,7 @@ module.exports.run = async function({ api, event, args }) {
         return api.sendMessage('Please provide a song name, for example: music selos', event.threadID, event.messageID);
     }
 
-    const ratbu = `https://ccexplorerapisjonell.vercel.app/api/sc?search=${encodeURIComponent(chillli)}`;
+    const ratbu = `https://joncll.serv00.net/videodl.php?url=${encodeURIComponent(chillli)}`;
 
     try {
         const response = await axios.get(ratbu, { responseType: 'arraybuffer' });
