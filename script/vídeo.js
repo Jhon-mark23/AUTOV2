@@ -8,7 +8,8 @@ module.exports.config = {
   hasPermission: 0,
   version: "1.0.0",
   description: "Get YouTube video download link",
-  usePrefix: true,
+  hasPrefix: false,
+  aliases: ['yt', 'video', 'vid'],
   credits: "Jonell Magallanes and fix by Jr Busaco",
   cooldowns: 10,
   commandCategory: "Utility"
