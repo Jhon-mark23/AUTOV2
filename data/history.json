@@ -1,0 +1,47 @@
+[
+  {
+    "userid": "61565653596175",
+    "prefix": ".",
+    "admin": [
+      ""
+    ],
+    "blacklist": [],
+    "enableCommands": [
+      {
+        "commands": [
+          "a2",
+          "adc",
+          "a1",
+          "autoseen",
+          "dictionary",
+          "emojimix",
+          "gemini",
+          "help",
+          "hercai",
+          "insult",
+          "music",
+          "out",
+          "pinterest",
+          "poli",
+          "quote",
+          "recipe",
+          "shoti",
+          "shoti2",
+          "sim",
+          "teach",
+          "tid",
+          "trans",
+          "unsend"
+        ]
+      },
+      {
+        "handleEvent": [
+          "antiout",
+          "autopost-catfact",
+          "resend"
+        ]
+      }
+    ],
+    "time": 14
+  }
+]
