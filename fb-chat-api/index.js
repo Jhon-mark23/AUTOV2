@@ -536,7 +536,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
       return res;
     });
 
-  // given a pageID we log in as a page
+    // given a pageID we log in as a page
   if (globalOptions.pageID) {
     mainPromise = mainPromise
       .then(function () {
