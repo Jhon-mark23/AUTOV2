@@ -1,33 +1,39 @@
 const axios = require('axios');
 
 module.exports.config = {
-  name: 'gemini',
-  version: '1.0.0',
-  role: 0,
-  hasPrefix: false,
-  aliases: ['gm', 'g1', 'pt'],
-  description: "An AI command powered by GPT-3",
-  usage: "gm [prompt]",
-  credits: 'Developer',
-  cooldown: 3,
+    name: "ai2",
+    role: 0,
+    credits: "madk",
+    description: "Interact with Gemini",
+    hasPrefix: false,
+    version: "1.0.0",
+    aliases: ["gemini", "ai2", "photo", "a"],
+    usage: "ai2 only works on photo"
 };
 
-module.exports.run = async function({ api, event, args }) {
-  const input = args.join(' ');
+module.exports.run = async function ({ api, event, args }) {
+    const prompt = args.join(" ");
 
-  if (!input) {
-    api.sendMessage(`Please provide a question or statement after 'ai'. For example: 'ai What is the capital of France?'`, event.threadID, event.messageID);
-    return;
-  }
+    if (!prompt) {
+        return api.sendMessage('╭─『 𝗜𝗠𝗔𝗚𝗘 𝗕𝗢𝗧 』✧✧✧\n╰✧✧✧───────────✧\n╭✧✧✧───────────✧\n𝙂𝙪𝙞𝙙𝙚: This cmd only works in photo.\n╰─────────────✧✧✧\n◉ 𝚁𝙴𝙿𝙻𝚈 𝚄𝙽𝚂𝙴𝙽𝙳 𝚃𝙾 𝚁𝙴𝙼𝙾𝚅𝙴 𝚃𝙷𝙴 𝙰𝙸𝚜 𝚁𝙴𝚂𝙿𝙾𝙽𝚂𝙴.\n◉  𝚃𝙷𝙴𝚂𝙴 𝙲𝙾𝙼𝙼𝙰𝙽𝙳 𝙸𝙽𝚃𝙴𝙽𝙳𝙴𝙳 𝙵𝙾𝚁 𝙸𝙼𝙰𝙶𝙴 𝙵𝙾𝚁𝙼 𝙾𝙽𝙻𝚈!\n╭✧✧✧───────────✧\n    »𝙲𝙾𝙽𝚃𝙰𝙲𝚃 𝙰𝙸 𝙾𝚆𝙽𝙴𝚁«\nhttps://www.facebook.com/geotechph.net\n╰─────────────✧✧✧', event.threadID, event.messageID);
+    }
 
-  api.sendMessage('Please wait...', event.threadID, event.messageID);
+    if (event.type !== "message_reply" || !event.messageReply.attachments[0] || event.messageReply.attachments[0].type !== "photo") {
+        return api.sendMessage('Please reply to a photo with this command.', event.threadID, event.messageID);
+    }
 
-  try {
-    const { data } = await axios.get(`https://nash-rest-api.vercel.app/gemini?prompt=${encodeURIComponent(input)}`);
-    const response = data.response;
+    const url = encodeURIComponent(event.messageReply.attachments[0].url);
+    api.sendTypingIndicator(event.threadID);
 
-    api.sendMessage(response, event.threadID, event.messageID);
-  } catch (error) {
-    api.sendMessage('An error occurred while processing your request.', event.threadID, event.messageID);
-  }
+    try {
+        await api.sendMessage('💬 Recognizing...', event.threadID);
+
+        const response = await axios.get(`https://api.joshweb.click/gemini?prompt=${encodeURIComponent(prompt)}&url=${url}`);
+        const description = response.data.gemini;
+
+        return api.sendMessage(`╭─『 𝗜𝗠𝗔𝗚𝗘 𝗕𝗢𝗧 』✧✧✧\n𝘼𝙣𝙨𝙬𝙚𝙧: ${description}\n`, event.threadID, event.messageID);
+    } catch (error) {
+        console.error(error);
+        return api.sendMessage('chat mo si owner', event.threadID, event.messageID);
+    }
 };
