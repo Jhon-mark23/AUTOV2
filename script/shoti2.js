@@ -24,17 +24,17 @@ module.exports.handleEvent = async function ({ api, event }) {
      api.setMessageReaction("🔄", event.messageID, (err) => {}, true);
 
 
-    const response = await axios.get("https://shoti-srv2.onlitegix.com/api/v1/request-f");
+    const response = await axios.get("https://random-use-api-production.up.railway.app/shoti");
 
       const file = fs.createWriteStream(__dirname + "/cache/shoti.mp4");
-      const userInfo = response.data.data.user;
-                    const username = userInfo.username || "undefined";
-                    const nickname = userInfo.nickname || "undefined";
-const title = response.data.data.title || "undefined";
+      const userInfo = response.data;
+      const username = userInfo.name || "undefined";
+      const nickname = userInfo.decription || "undefined";
+      
 
 
 
-      const rqs = request(encodeURI(response.data.data.url));
+      const rqs = request(encodeURI(response.data.url));
       rqs.pipe(file);
 
       file.on("finish", async () => {
@@ -44,7 +44,7 @@ const title = response.data.data.title || "undefined";
 
         await api.sendMessage(
           {
-            body: `Username: @${username}\nNickname: ${nickname}\nTitle: ${title}`,
+            body: `Username: @${name}\nDecription: ${decription}`,
             attachment: fs.createReadStream(__dirname + "/cache/shoti.mp4"),
           },
           event.threadID,
