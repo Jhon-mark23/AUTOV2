@@ -5,8 +5,8 @@ module.exports.config = {
     aliases: ['a1', 'a'],
     version: "1.0.0",
     hasPermission: 0,
-    credits: "api by jerome",//api by jerome
-    description: "Gpt architecture",
+    credits: "mark",
+    description: "powerd by GPT-3.5",
     hasPrefix: false,
     commandCategory: "GPT4",
     cooldowns: 5,
@@ -30,7 +30,7 @@ module.exports.run = async function ({ api, event, args }) {
         // Delay
         await new Promise(resolve => setTimeout(resolve, 2000)); // Adjust the delay time as needed
 
-        const gpt4_api = `https://gpt4withcustommodel.onrender.com/gpt?query=${encodeURIComponent(prompt)}&model=gpt-4`;
+        const gpt4_api = `https://kaiz-apis.gleeze.com/api/gpt-3.5?q=${encodeURIComponent(prompt)}`;
 
         const response = await axios.get(gpt4_api);
 
